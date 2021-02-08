@@ -2,7 +2,6 @@ from selenium import webdriver
 from sys import argv
 import time
 
-#script_name, link = argv
 link="http://suninjuly.github.io/registration2.html"
 try:
     browser = webdriver.Chrome()
@@ -22,7 +21,7 @@ try:
 
     # Проверяем, что смогли зарегистрироваться
     # ждем загрузки страницы
-    time.sleep(1)
+
 
     # находим элемент, содержащий текст
     welcome_text_elt = browser.find_element_by_tag_name("h1")

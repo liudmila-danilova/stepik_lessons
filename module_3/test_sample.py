@@ -3,39 +3,36 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+def test_1():     #Тестовый сценарий 1.3.1 Переход на страницу регистрации пользователя
 
-try:
-    #Тестовый сценарий 1.1.1 Просмотр главной страницы при незалогиненном пользователе
-    browser = webdriver.Chrome()
-    browser.get("http://selenium1py.pythonanywhere.com/ru/")
+    '''
+    Шаги:
+- Шаг 1 | Найти кнопку Войти и зарегистрироваться | Кнопка Войти и зарегистрироваться есть на странице
+- Шаг 2 | Кликнуть на ссылку | Происходит переход на страницу логина пользователя http://selenium1py.pythonanywhere.com/ru/accounts/login/.
+    Предусловия:
+Находиться на странице http://selenium1py.pythonanywhere.com/ru/
+Быть незалогиненным.
+    '''
 
-    #здесь неудачная попытка получить заголовок и сравнить его с ожидаемым результатом
-    #title = browser.title
-    #text_title = (title.text)
-    #print(text_title)
-    #assert "Oscar - Sandbox" == text_title
-
-    #проверяем на видимость блок выбора языка
-    lang = WebDriverWait(browser, 20).until(
-        EC.visibility_of_element_located((By.ID, "language_selector")))
-
-    #проверка на видимость блока логина
-    login_btn = WebDriverWait(browser, 20).until(
-        EC.visibility_of_element_located((By.ID, "login_link")))
-    actual_url_login = login_btn.get_attribute("href")
-
-    #сравнение актуальной ссылки на логин с ожидаемой
-    assert "http://selenium1py.pythonanywhere.com/ru/accounts/login/" == actual_url_login
+    link = "http://selenium1py.pythonanywhere.com/ru/"
+    search_button_login = "login_link"
+    search_active_login_page = "[class='active']"
 
 
-    basket_look = WebDriverWait(browser, 20).until(
-        EC.visibility_of_element_located((By.CSS_SELECTOR, "span>a")))
-    actual_url_basket_look = basket_look.get_attribute("href")
+    try:
+        browser = webdriver.Chrome()
+        browser.get(link)
 
-    #сравнение актуальной ссылки на корзину с ожидаемой
-    assert "http://selenium1py.pythonanywhere.com/ru/basket/" == actual_url_basket_look
+        button_login = WebDriverWait(browser, 15).until(EC.presence_of_element_located((By.ID, search_button_login)))
+        button_login.click()
+        active_login_page = browser.find_element_by_css_selector(search_active_login_page)
 
-finally:
-    browser.quit()
+        assert "Войти или зарегистрироваться" in active_login_page.text
+        print("test_1 'Переход на страницу регистрации пользователя' passed")
 
+
+    finally:
+        browser.quit()
+
+test_1()
 

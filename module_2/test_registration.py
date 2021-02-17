@@ -2,8 +2,8 @@ from selenium import webdriver
 from sys import argv
 import time
 
-script_name, link = argv
-
+#script_name, link = argv
+link="http://suninjuly.github.io/registration1.html"
 try:
     browser = webdriver.Chrome()
     browser.get(link)

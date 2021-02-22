@@ -3,7 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-def test_1():     #Тестовый сценарий 1.3.1 Переход на страницу регистрации пользователя
+
+def test_goto_signup_page():  # Тестовый сценарий 1.3.1 Переход на страницу регистрации пользователя
 
     '''
     Шаги:
@@ -15,24 +16,26 @@ def test_1():     #Тестовый сценарий 1.3.1 Переход на �
     '''
 
     link = "http://selenium1py.pythonanywhere.com/ru/"
-    search_button_login = "login_link"
-    search_active_login_page = "[class='active']"
-
+    button_login_locator = "login_link"
+    active_login_page_locator = "[class='active']"
 
     try:
+        #arrange
         browser = webdriver.Chrome()
         browser.get(link)
 
-        button_login = WebDriverWait(browser, 15).until(EC.presence_of_element_located((By.ID, search_button_login)))
+        #act
+        button_login = WebDriverWait(browser, 15).until(EC.presence_of_element_located((By.ID, button_login_locator)))
         button_login.click()
-        active_login_page = browser.find_element_by_css_selector(search_active_login_page)
+        active_login_page = browser.find_element_by_css_selector(active_login_page_locator)
 
-        assert "Войти или зарегистрироваться" in active_login_page.text
-        print("test_1 'Переход на страницу регистрации пользователя' passed")
+        #assert
+        assert "Войти или зарегистрироваться" in active_login_page.text, "Неверная страница!"
+        print("test_goto_signup_page 'Переход на страницу регистрации пользователя' passed")
 
 
     finally:
         browser.quit()
 
-test_1()
 
+test_goto_signup_page()
